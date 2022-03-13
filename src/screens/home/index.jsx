@@ -6,6 +6,7 @@ import {
   Text,
   View,
   TextInput,
+  FlatList
 } from 'react-native';
 
 import { Button } from '../../components/Button';
@@ -40,14 +41,13 @@ export const Home = () => {
 
       <Text style={[styles.title, {marginTop: 15, marginBottom: 15}]}>Skills:</Text>
 
-      {mySkill.map((skill, key) => {
-        return (
-          <SkillCard
-            key={key}
-            skill={skill}
-          />
-        )
-      })}
+      <FlatList
+        data={mySkill}
+        keyExtractor={(item) => item}
+        renderItem={({item}) => (
+          <SkillCard skill={item} />
+        )}
+      />
     </View>
   );
 }
