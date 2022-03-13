@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import { useState, useMemo } from 'react';
 
 import { StatusBar } from 'expo-status-bar';
 import {
@@ -6,7 +6,8 @@ import {
   Text,
   View,
   TextInput,
-  FlatList
+  FlatList,
+  ScrollView
 } from 'react-native';
 
 import { Button } from '../../components/Button';
@@ -19,6 +20,10 @@ export const Home = () => {
   const handleAddNewSkill = () => {
     setMySkill([...mySkill, newSkill]);
   }
+
+  useMemo(() => {
+    console.log();
+  }, [])
 
   return (
     <View style={styles.container}>
@@ -40,14 +45,28 @@ export const Home = () => {
       />
 
       <Text style={[styles.title, {marginTop: 15, marginBottom: 15}]}>Skills:</Text>
-
+      {/*
       <FlatList
         data={mySkill}
         keyExtractor={(item) => item}
         renderItem={({item}) => (
-          <SkillCard skill={item} />
+          <SkillCard
+            skill={item} />
         )}
-      />
+      /> */}
+
+      <ScrollView>
+        {
+          mySkill.map((skill, key) => {
+            return(
+              <SkillCard
+              key={key}
+              skill={skill}
+              />
+            )
+          })
+        }
+      </ScrollView>
     </View>
   );
 }
