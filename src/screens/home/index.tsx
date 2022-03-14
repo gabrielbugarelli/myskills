@@ -27,7 +27,16 @@ export const Home = () => {
       name: newSkill
     }
 
-    setMySkill([...mySkill, data]);
+    if(newSkill.trim() !== '') {
+      setMySkill([...mySkill, data]);
+      setNewSkill('')
+    }
+  }
+
+  const handleRemoveSkill = (skillId: string) => {
+    setMySkill(oldState => oldState.filter(
+      skill => skill.id !== skillId
+    ))
   }
 
   useEffect(() => {
@@ -51,7 +60,8 @@ export const Home = () => {
       <TextInput
         style={styles.textInput}
         placeholderTextColor="#EDF2F7"
-        placeholder='Digite a sua skill'
+        placeholder='type your skill'
+        value={newSkill}
         onChangeText={value => setNewSkill(value)}
       />
 
@@ -68,6 +78,7 @@ export const Home = () => {
         renderItem={({item}) => (
           <SkillCard
             skill={item.name}
+            onPress={() => handleRemoveSkill(item.id)}
           />
         )}
       />
@@ -90,7 +101,6 @@ const styles = StyleSheet.create({
   },
 
   textInput: {
-    fontWeight: 'bold',
     fontSize: 18,
     padding: 15,
     borderRadius: 7,
