@@ -56,6 +56,7 @@ export const Home = () => {
       />
 
       <Button
+        title='Add'
         onPress={handleAddNewSkill}
       />
 
