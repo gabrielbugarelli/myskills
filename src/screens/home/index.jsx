@@ -1,12 +1,11 @@
 import { useState, useEffect } from 'react';
 
-import { StatusBar } from 'expo-status-bar';
 import {
   StyleSheet,
   Text,
   View,
   TextInput,
-  ScrollView
+  ScrollView,
 } from 'react-native';
 
 import { Button } from '../../components/Button';
@@ -35,8 +34,6 @@ export const Home = () => {
 
   return (
     <View style={styles.container}>
-      <StatusBar style="auto" />
-
       <Text
         style={[styles.title, {marginBottom: 15}]}
       >{greeting}</Text>
@@ -84,7 +81,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#171923',
     paddingHorizontal: 30,
-    paddingVertical: 100,
+    paddingVertical: 20,
   },
 
   title: {
