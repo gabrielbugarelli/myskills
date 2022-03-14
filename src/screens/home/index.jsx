@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useEffect } from 'react';
 
 import { StatusBar } from 'expo-status-bar';
 import {
@@ -6,7 +6,6 @@ import {
   Text,
   View,
   TextInput,
-  FlatList,
   ScrollView
 } from 'react-native';
 
@@ -16,13 +15,22 @@ import { SkillCard } from '../../components/SkillCard';
 export const Home = () => {
   const [newSkill, setNewSkill]  = useState('');
   const [mySkill, setMySkill] = useState([]);
+  const [greeting, setGreeting] = useState('');
 
   const handleAddNewSkill = () => {
     setMySkill([...mySkill, newSkill]);
   }
 
-  useMemo(() => {
-    console.log();
+  useEffect(() => {
+    const dateTime = new Date().getHours();
+
+    if(dateTime < 12) {
+      setGreeting('Good morning, Gabriel!');
+    } else if (dateTime > 12 && dateTime < 18) {
+      setGreeting('Good afternoon, Gabriel!');
+    } else {
+      setGreeting('Good night, Gabriel!');
+    }
   }, [])
 
   return (
@@ -31,12 +39,12 @@ export const Home = () => {
 
       <Text
         style={[styles.title, {marginBottom: 15}]}
-      >Seja bem vindo, Gabriel!</Text>
+      >{greeting}</Text>
 
       <TextInput
         style={styles.textInput}
         placeholderTextColor="#EDF2F7"
-        placeholder='Digite o seu nome'
+        placeholder='Digite a sua skill'
         onChangeText={setNewSkill}
       />
 
