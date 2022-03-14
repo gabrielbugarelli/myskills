@@ -1,6 +1,10 @@
 import { View, Text, StyleSheet } from "react-native";
 
-export const SkillCard = ({skill}) => {
+type SkillCardProps = {
+  skill: string;
+}
+
+export const SkillCard = ({ skill }: SkillCardProps) => {
   return (
     <View style={styles.skillContainer}>
       <Text style={styles.skillText}>
