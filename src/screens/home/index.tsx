@@ -5,19 +5,29 @@ import {
   Text,
   View,
   TextInput,
-  ScrollView,
+  FlatList,
 } from 'react-native';
 
 import { Button } from '../../components/Button';
 import { SkillCard } from '../../components/SkillCard';
 
+type MySkillType = {
+  id: string;
+  name: string;
+}
+
 export const Home = () => {
   const [newSkill, setNewSkill]  = useState('');
-  const [mySkill, setMySkill] = useState([]);
+  const [mySkill, setMySkill] = useState<MySkillType[]>([]);
   const [greeting, setGreeting] = useState('');
 
   const handleAddNewSkill = () => {
-    setMySkill([...mySkill, newSkill]);
+    const data = {
+      id: String(new Date().getTime()),
+      name: newSkill
+    }
+
+    setMySkill([...mySkill, data]);
   }
 
   useEffect(() => {
@@ -42,7 +52,7 @@ export const Home = () => {
         style={styles.textInput}
         placeholderTextColor="#EDF2F7"
         placeholder='Digite a sua skill'
-        onChangeText={setNewSkill}
+        onChangeText={value => setNewSkill(value)}
       />
 
       <Button
@@ -50,28 +60,16 @@ export const Home = () => {
       />
 
       <Text style={[styles.title, {marginTop: 15, marginBottom: 15}]}>Skills:</Text>
-      {/*
+
       <FlatList
         data={mySkill}
-        keyExtractor={(item) => item}
+        keyExtractor={(item) => item.id}
         renderItem={({item}) => (
           <SkillCard
-            skill={item} />
+            skill={item.name}
+          />
         )}
-      /> */}
-
-      <ScrollView>
-        {
-          mySkill.map((skill, key) => {
-            return(
-              <SkillCard
-              key={key}
-              skill={skill}
-              />
-            )
-          })
-        }
-      </ScrollView>
+      />
     </View>
   );
 }
